@@ -35,16 +35,13 @@ export class WeatherComponent implements OnInit {
     if (localStorage.getItem(address.zipCode)) {
       const storedData = JSON.parse(localStorage.getItem(address.zipCode));
       if (this.timeDifference(storedData.lastSearched, Date.now()) >= 30) {
-        console.log('Removing old weather data');
         localStorage.removeItem(address.zipCode);
         this.callApi(address);
       } else {
-        console.log('using stored data');
         this.usingStorage = true;
         this.weatherNow = storedData;
       }
     } else {
-      console.log('finding new data');
       this.callApi(address);
     }
   }
@@ -67,7 +64,6 @@ export class WeatherComponent implements OnInit {
 
     const minutesDifference = Math.floor(difference / 1000 / 60);
     difference -= minutesDifference * 1000 * 60;
-    console.log('Time difference is ' + minutesDifference);
     return minutesDifference;
   }
 
