@@ -1,0 +1,42 @@
+input:focus {
+  outline: none;
+}
+
+div.search-box {
+  vertical-align: top;
+}
+
+div.search-box, div.all-weather {
+  display: inline-block;
+}
+
+div.all-weather {
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+span.high, span.low {
+  color: white;
+}
+
+span.high {
+  background: red;
+}
+
+span.low {
+  background: blue;
+}
+
+ul > li {
+  display: inline-block;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+  min-width: 120px;
+}

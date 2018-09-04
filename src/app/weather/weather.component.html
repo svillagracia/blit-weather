@@ -1,0 +1,83 @@
+<h1>Weather Search</h1>
+<div class="search-box">
+  <h4>Enter your location:</h4>
+  <form [formGroup]="address" (ngSubmit)="findWeather(address.value)">
+    <label for="address">Address</label><br />
+    <input
+      id="address"
+      formControlName="address"
+      placeholder="123 Smith Street"
+      type="text"
+    ><br />
+    <label for="city">City</label><br />
+    <input
+      id="city"
+      formControlName="city"
+      placeholder="New York"
+      type="text"
+    ><br />
+    <label for="state">State</label><br />
+    <input
+      id="state"
+      formControlName="state"
+      placeholder="NY"
+      type="text"
+    ><br />
+    <label for="zipCode">Zip Code</label><br />
+    <input
+      id="zipCode"
+      formControlName="zipCode"
+      placeholder="12345"
+      type="text"
+    ><br />
+    <label for="country">Country</label><br />
+    <input
+      id="country"
+      formControlName="country"
+      placeholder="United States"
+      type="text"
+    ><br/>
+    <button type="submit" [disabled]="!address.valid">Get Weather</button>
+  </form>
+</div>
+<div class="all-weather" *ngIf="weatherNow">
+  <div class="today">
+    <h2>{{ weatherNow.location.name }}<span *ngIf="celsius"> (C&deg;)</span></h2>
+    <p *ngIf="usingStorage">(using cached data)</p>
+    <button *ngIf="!celsius" (click)="cel2Far()">
+      Display in C&deg;
+    </button>
+    <button *ngIf="celsius" (click)="cel2Far()">
+      Display in F&deg;
+    </button>
+    <br/>
+    <img src="https:{{weatherNow.current.condition.icon}}" alt=""><br/>
+    <p><strong>{{ weatherNow.current.condition.text }}</strong></p>
+    <p *ngIf="!celsius">{{ weatherNow.current.temp_f }}&deg;</p>
+    <p *ngIf="celsius">{{ weatherNow.current.temp_c }}&deg;</p>
+  </div>
+  <div>
+    <h3>7 Day Forecast</h3>
+    <ul class="forecast">
+      <li *ngFor="let day of weatherNow.forecast.forecastday">
+        <strong>{{ day.date }}</strong>
+        <div *ngIf="!celsius">
+          <img src="https:{{day.day.condition.icon}}" alt="">
+          <p><strong>{{ day.day.condition.text }}</strong></p>
+          <p>
+            <span class="high">High: {{ day.day.maxtemp_f }}&deg;</span><br/>
+            <span class="low">Low: {{ day.day.mintemp_f }}&deg;</span>
+          </p>
+        </div>
+        <div *ngIf="celsius">
+          <img src="https:{{day.day.condition.icon}}" alt="">
+          <p><strong>{{ day.day.condition.text }}</strong></p>
+          <p>
+            <span class="high">High: {{ day.day.maxtemp_c }}&deg;</span><br/>
+            <span class="low">Low: {{ day.day.mintemp_c }}&deg;</span>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
